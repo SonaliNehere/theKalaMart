@@ -1,0 +1,96 @@
+ .example-card1 {
+   max-width: 50%;
+   margin: 10px;
+ }
+
+ .example-card2 {
+   max-width: 50%;
+   margin: 10px;
+ }
+
+ .example-card {
+   max-width: 50%;
+   margin: 10px;
+ }
+
+ .container {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: center;
+   margin: 20px;
+ }
+
+ .parent {
+   overflow-y: scroll;
+   scrollbar-width: thin;
+ }
+
+ .img {
+   height: 500px;
+   width: 430px
+ }
+
+ .addTocart {
+   /* width: 47.5%; */
+   width: 47%;
+   color: purple;
+   border-color: purple;
+   background-color: white;
+   white-space: nowrap;
+   margin: 5px;
+ }
+
+ .buy {
+   /* width: 47.5%; */
+   width: 47%;
+   background-color: purple;
+   color: white;
+   margin: 5px;
+ }
+
+ .actions{
+  margin-top: 10px;
+ }
+
+.act{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+ .title {
+   border: 2px solid rgba(128, 128, 128, 0.064);
+   border-radius: 5px;
+   padding: 5px;
+   margin: 5px;
+ }
+
+ .name {
+   color: gray;
+   font-size: 18px;
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ }
+
+ .details {
+   border: 2px solid rgba(128, 128, 128, 0.064);
+   border-radius: 5px;
+   padding: 5px;
+   margin: 5px;
+ }
+
+ .price {
+   font-size: 19px;
+   color: rgb(70, 65, 65)
+ }
+
+ .detailTitle {
+   font-size: 20px;
+ }
+
+ .desc {
+   color: gray;
+   font-size: 18px;
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ }
+

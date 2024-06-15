@@ -1,0 +1,55 @@
+<app-loader *ngIf="isLoading"></app-loader>
+<mat-toolbar>
+  <span>Place Order </span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="home" (click)="routeToHome()">
+    <mat-icon>home</mat-icon>
+  </button>
+
+</mat-toolbar>
+<mat-divider></mat-divider>
+
+<div class="scrollablePart" *ngIf="!isLoading">
+  <div class="center-container">
+    <form #myForm="ngForm" (ngSubmit)="submitForm(myForm)" class="formClass" appearance="outlined">
+      <mat-form-field class="select">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" name="name" [(ngModel)]="formData.name" required>
+        <mat-error *ngIf="myForm.controls['name']?.invalid && myForm.controls['name']?.touched">
+          Name is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="select">
+        <mat-label>Delivery Address</mat-label>
+        <input matInput type="text" name="address" [(ngModel)]="formData.address" required>
+        <mat-error *ngIf="myForm.controls['address']?.invalid && myForm.controls['address']?.touched">
+          Delivery Address is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="select">
+        <mat-label>Contact</mat-label>
+        <input matInput type="tel" name="contact" [(ngModel)]="formData.contact" required pattern="[0-9]{10}">
+        <mat-error *ngIf="myForm.controls['contact']?.invalid && myForm.controls['contact']?.touched">
+          Contact is required.
+        </mat-error>
+      </mat-form-field>
+      <div class="select" *ngIf="!isMultipleProducts">
+        <mat-label>Upload Images</mat-label>
+        <input #fileInput placeholder="Image" class="form-control" style="width: 300px; margin-top: 5px;" type="file"
+          name="images" (change)="onFileChange($event, fileInput)" multiple />
+
+        <div *ngFor="let file of uploadedFiles">
+          <img [src]="file.url" alt="uploaded image" style="width: 100px; height: 100px; margin-top: 5px;">
+          <button mat-icon-button (click)="deleteImage(file, $event)">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </div>
+
+
+      </div>
+
+
+      <button mat-raised-button type="submit" [disabled]="myForm.invalid">Proceed to checkout</button>
+    </form>
+  </div>
+</div>

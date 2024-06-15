@@ -1,0 +1,30 @@
+<!-- <form (ngSubmit)="onSubmit()" #orderForm="ngForm">
+    <label>Name:</label>
+    <input type="text" name="name" ngModel required>
+  
+    <label>Email:</label>
+    <input type="email" name="email" ngModel required>
+  
+    <label>Address:</label>
+    <textarea name="address" ngModel required></textarea>
+  
+    <label>Upload Images:</label>
+    <input type="file" name="images" (change)="onFileChange($event)" multiple >
+
+    <label>Upload Images:</label>
+    <input type="file" name="images" (change)="onFileChange($event)" multiple >
+  
+    <button type="submit" [disabled]="!orderForm.valid">Place Order</button>
+  </form> -->
+  
+  <label>Upload Images:</label>
+  <input type="file" name="images" (change)="onFileChange($event)"  >
+
+  <label>Upload Images:</label>
+  <input type="file" name="images" (change)="onFileChange($event)"  >
+
+  <label>Uploaded Images:</label>
+  <div *ngFor="let number of numbers">
+    {{ number }} :  <input type="file" name="images" (change)="onFileChange($event)"  >
+  </div>
+  

@@ -1,0 +1,6 @@
+<form #myForm (ngSubmit)="onSubmit()">
+    <!-- Your form controls here -->
+    <input type="file" (change)="onFileChange($event)" multiple>
+    <button type="submit">Submit</button>
+  </form>
+  

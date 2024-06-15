@@ -1,0 +1,60 @@
+<app-loader *ngIf="isLoading"></app-loader>
+<mat-toolbar class="toolbar">
+  <span>CART</span>
+  <span class="example-spacer"></span>
+  <button mat-raised-button (click)="emptyCart()" class="clearCart" [disabled]="cartProducts.length === 0">Clear
+    cart</button> &nbsp;
+  <button mat-icon-button class="home" (click)="routeToHome()">
+    <mat-icon>home</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="scrollablePart" *ngIf="!isLoading">
+  <div *ngIf="cartProducts.length === 0" class="onEmptyCart">
+    <h1>Your cart is empty</h1>
+  </div>
+  <mat-card class="example-card" *ngFor="let product of cartProducts" appearance="outlined">
+    <mat-card-header>
+      <div class="cartProducts">
+        <div class="image">
+          <img mat-card-lg-image *ngIf="!isMobile" [src]="product.product.imageUrl" [alt]="product.product.name"
+            (click)="openProduct(product.product)">
+            <img mat-card-md-image *ngIf="isMobile" [src]="product.product.imageUrl" [alt]="product.product.name"
+            (click)="openProduct(product.product)">
+        </div>
+        <div  class="desc">
+          <mat-card-title>{{ product.product.name }}</mat-card-title>
+          <mat-label>₹ {{ product.product.price }}</mat-label>
+          <mat-card-actions>
+            <div class="updateQty">
+              <button mat-icon-button (click)="decreaseQuantity(product.quantity, product.productId, product.product)"
+                [disabled]="product.quantity<2">
+                <mat-icon>remove</mat-icon>
+              </button>&nbsp;
+              <p class="qty" *ngIf="!isMobile"> Qty : {{product.quantity}} </p> &nbsp;
+              <p class="qty" *ngIf="isMobile"> {{product.quantity}} </p> &nbsp;
+              <button mat-icon-button (click)="increaseQuantity(product.quantity, product.productId, product.product)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <button mat-icon-button (click)="removeProductFromCart(product.productId)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </mat-card-actions>
+        </div>
+      </div>
+    </mat-card-header>
+  </mat-card>
+
+  <mat-divider *ngIf="cartProducts.length !== 0" class="divider"></mat-divider>
+  <mat-toolbar class="total" *ngIf="cartProducts.length !== 0">
+    <span><span></span>Total Price : {{totalPrice}} </span>
+    <span class="example-spacer" *ngIf="!isMobile"></span>
+    <button mat-raised-button *ngIf="!isMobile" (click)="openForm()" class="checkOut" [disabled]="cartProducts.length === 0">Proceed
+      to checkout</button>
+  </mat-toolbar>
+  <button mat-raised-button *ngIf="isMobile" (click)="openForm()" class="checkOut1" [disabled]="cartProducts.length === 0">Proceed
+    to checkout</button>
+</div>
+
+<router-outlet></router-outlet>

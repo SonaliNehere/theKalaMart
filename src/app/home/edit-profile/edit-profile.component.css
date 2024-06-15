@@ -1,0 +1,71 @@
+.formClass {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.333);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    /* height: 100vh; */
+}
+
+/* Adjust the size of mat-input */
+.mat-form-field-wrapper .mat-form-field-flex {
+    font-size: 14px;
+    padding: 8px;
+}
+
+/* Optional: Adjust height of input element */
+.mat-input-element {
+    /* height: 40px; */
+    width: 100%;
+}
+
+.select {
+    margin: 5px;
+    width: 300px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.mat-divider {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px
+}
+
+.scrollablePart {
+    margin-top: 80px;
+    /* Adjust based on the height of the toolbar */
+    /* padding: 20px;  */
+    overflow-y: auto;
+    /* height: calc(100vh - 64px);  */
+}
+
+.mat-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+
+.home {
+    color: black;
+}
