@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject , AfterViewInit, ElementRef, Renderer2} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 import { UserFormComponent } from '../user-form/user-form.component';
@@ -9,6 +9,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoaderService } from '../../shared/loader.service';
+
+declare var Razorpay: any;
+
 
 @Component({
   selector: 'app-product',
@@ -27,8 +30,15 @@ export class ProductComponent {
     private _snackBar: MatSnackBar,
     private router: Router,
     private loaderService: LoaderService,
+    private el: ElementRef, private renderer: Renderer2
   ) {
     this.data = this.dataService.getData();
+  }
+
+  ngAfterViewInit() {
+    const button = this.el.nativeElement.querySelector('.buy');
+    this.renderer.setStyle(button, 'background-color', 'purple');
+    this.renderer.setStyle(button, 'color', 'white');
   }
 
   openForm(data: any) {
@@ -65,4 +75,52 @@ export class ProductComponent {
       duration: 2000, // Specify the duration in milliseconds
     });
   }
+
+  payNow() {
+    const RozarpayOptions = {
+      description: 'Sample Razorpay demo',
+      currency: 'INR',
+      amount: 100,
+      name: 'Sai',
+      key: 'rzp_test_erITWzQfolL9Hj',
+      image: 'https://i.imgur.com/FApqk3D.jpeg',
+      prefill: {
+        name: 'sai kumar',
+        email: 'sai@gmail.com',
+        phone: '9898989898'
+      },
+      theme: {
+        color: '#6466e3'
+      },
+      modal: {
+        ondismiss:  () => {
+          console.log('dismissed')
+        }
+      }
+    }
+
+    const successCallback = (paymentid: any) => {
+      console.log(paymentid);
+    }
+
+    const failureCallback = (e: any) => {
+      console.log(e);
+    }
+
+    Razorpay.open(RozarpayOptions,successCallback, failureCallback)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

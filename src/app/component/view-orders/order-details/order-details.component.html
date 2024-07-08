@@ -15,10 +15,10 @@
                     <img mat-card-lg-image [src]="data.product.product.imageUrl" alt="{{ data.product.product.name }}"
                         (click)="openProduct(data.product.product)">
                 </div>
-                <div class="title-group" class="desc2">
+                <div class="desc2">
                     <mat-card-title>{{ data.product.product.name }}</mat-card-title>
                     <mat-card-subtitle>₹{{data.product.product.price}}</mat-card-subtitle>
-                    <mat-card-subtitle>Order Id : {{ data.orderId }}</mat-card-subtitle>
+                    <!-- <mat-card-subtitle>Order Id : {{ data.orderId }}</mat-card-subtitle> -->
                 </div>
             </div>
         </mat-card-header>
@@ -26,6 +26,10 @@
         <mat-card-content>
             <div>
                 <mat-card-title>Order Tracking</mat-card-title>
+                <div class="margin">
+                    <mat-label>Order Id</mat-label>
+                    <mat-card-subtitle>{{ data.orderId }}</mat-card-subtitle>
+                </div>
                 <div class="margin">
                     <mat-label>Order Placed</mat-label>
                     <mat-card-subtitle>{{ data.dateOfOrdered | date:'medium' }}</mat-card-subtitle>

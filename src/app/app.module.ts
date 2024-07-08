@@ -47,6 +47,7 @@ import { SendImagesFirebaseComponent } from './home/send-images-firebase/send-im
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { EditProfileComponent } from './home/edit-profile/edit-profile.component';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { NewlineToBrPipe } from './pipes/newline-to-br.pipe';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
     ConfirmDialogComponent,
     EditProfileComponent,
     ErrorDialogComponent,
+    NewlineToBrPipe,
   ],
   imports: [
     BrowserModule,

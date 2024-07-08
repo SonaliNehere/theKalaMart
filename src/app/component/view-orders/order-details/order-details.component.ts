@@ -22,7 +22,7 @@ export class OrderDetailsComponent {
   ) {
     this.isLoading = this.loaderService.show();
     this.data = this.dataService.getOrderData();
-    this.isLoading = this.loaderService.show();
+    this.isLoading = this.loaderService.hide();
     console.log("data : ", this.data);
     this.priceData.push(this.data.product.product);
     console.log("priceData : ", this.priceData);

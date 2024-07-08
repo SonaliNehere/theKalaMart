@@ -207,7 +207,7 @@ export class UserFormComponent {
           this.isLoading = this.loaderService.hide();
           console.log('Email sent successfully:', response);
           this.openSnackBar(
-            'Email sent successfully to the Seller and Your order is placed. ',
+            'Your order is placed. ',
             'Close'
           );
           this.router.navigate(['dashboard']);

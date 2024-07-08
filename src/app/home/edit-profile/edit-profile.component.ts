@@ -35,6 +35,8 @@ export class EditProfileComponent {
   };
   
   isLoading: boolean = false;
+  isCancle: boolean = false;
+  displayHome: boolean = true;
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -58,22 +60,30 @@ export class EditProfileComponent {
   }
 
   submitForm(form: NgForm) {
+    this.isCancle = false;
     this.isLoading = this.loaderService.show();
     this.dataService
     .updateUserDetails(localStorage.getItem("uid"), this.formData.name, this.formData.contact, this.formData.address)
     .then(() => {
       console.log('User updated');
       this.disableForm = true;
+      this.displayHome = true;
       this.isLoading = this.loaderService.hide();
     });
   }
 
   editProfile(){
     this.disableForm = false;
+    this.displayHome = false;
   }
 
   routeToHome() {
     this.router.navigate(['dashboard']);
+  }
+
+  OnCancle(){
+    this.isCancle = true;
+    this.displayHome = true;
   }
 
  
