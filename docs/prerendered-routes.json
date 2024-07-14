@@ -1,0 +1,18 @@
+{
+  "routes": [
+    "/cart",
+    "/dashboard",
+    "/edit-profile",
+    "/front-page",
+    "/order-details",
+    "/orders",
+    "/product",
+    "/send-images",
+    "/send-images-firebase",
+    "/theKalaMart/forgot-password",
+    "/theKalaMart/login",
+    "/theKalaMart/register",
+    "/theKalaMart/varify-email",
+    "/user-form"
+  ]
+}
