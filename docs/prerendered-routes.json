@@ -1,0 +1,18 @@
+{
+  "routes": [
+    "/cart",
+    "/dashboard",
+    "/edit-profile",
+    "/forgot-password",
+    "/front-page",
+    "/login",
+    "/order-details",
+    "/orders",
+    "/product",
+    "/register",
+    "/send-images",
+    "/send-images-firebase",
+    "/user-form",
+    "/varify-email"
+  ]
+}
