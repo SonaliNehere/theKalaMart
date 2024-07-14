@@ -17,11 +17,11 @@ import { EditProfileComponent } from './home/edit-profile/edit-profile.component
 
 const routes: Routes = [
   {path: '', redirectTo:'login', pathMatch:'full'},
-  {path: 'login', component : LoginComponent},
+  {path: 'theKalaMart/login', component : LoginComponent},
   {path: 'dashboard', component : HomeComponent},
-  {path: 'register', component : RegisterComponent},
-  {path: 'varify-email', component : VarifyEmailComponent},
-  {path: 'forgot-password', component : ForgotPasswordComponent},
+  {path: 'theKalaMart/register', component : RegisterComponent},
+  {path: 'theKalaMart/varify-email', component : VarifyEmailComponent},
+  {path: 'theKalaMart/forgot-password', component : ForgotPasswordComponent},
   {path: 'product', component : ProductComponent},
   {path: 'orders', component : ViewOrdersComponent},
   {path: 'cart', component : ViewCartComponent},
