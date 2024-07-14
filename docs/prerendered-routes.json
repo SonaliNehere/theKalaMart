@@ -3,16 +3,16 @@
     "/cart",
     "/dashboard",
     "/edit-profile",
+    "/forgot-password",
     "/front-page",
+    "/login",
     "/order-details",
     "/orders",
     "/product",
+    "/register",
     "/send-images",
     "/send-images-firebase",
-    "/theKalaMart/forgot-password",
-    "/theKalaMart/login",
-    "/theKalaMart/register",
-    "/theKalaMart/varify-email",
-    "/user-form"
+    "/user-form",
+    "/varify-email"
   ]
 }
