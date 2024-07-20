@@ -27,7 +27,7 @@
           <mat-card-title class="detailTitle">Product Details</mat-card-title>
           <p class="desc" [innerHTML]="data.desc | newlineToBr"></p>
           <p class="desc" *ngIf="data.productVideoLink">Product video link:</p>
-          <a [routerLink]="data.productVideoLink" [attr.target]="'_blank'">{{data.productVideoLink}}</a>
+          <a [href]="data.productVideoLink" [attr.target]="'_blank'">{{data.productVideoLink}}</a>
         </mat-card-content>
       </div>
     </div>
