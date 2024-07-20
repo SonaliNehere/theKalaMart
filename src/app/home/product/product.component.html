@@ -1,34 +1,49 @@
 <app-loader *ngIf="isLoading"></app-loader>
-<div class="parent">
-  <div class="container">
-    <div class="example-card1 col-12 col-md-6">
-      <img mat-card-image [src]="data.imageUrl" alt="data.name" class="img img-fluid" />
-      <br>
-      <div class="actions">
-        <mat-card-actions class="act">
-          <button mat-button mat-stroked-button (click)="addToCart(1)" class="addTocart">Add to Cart</button>
-          <button mat-flat-button class="buy" (click)="openForm(data)">Buy Now</button>
-          <!-- <button (click)="payNow()">Pay </button> -->
-        </mat-card-actions>
-      </div>
-    </div>
+<mat-toolbar>
+  <!-- <span>Place Order </span> -->
+  <button mat-icon-button class="home" (click)="routeBack()">
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="home" (click)="routeToHome()">
+    <mat-icon>home</mat-icon>
+  </button>
 
-    <div class="example-card2 col-12 col-md-6">
-      <div class="title">
-        <mat-card-header>
-          <mat-card-title class="name">{{ data.name }}</mat-card-title>
-          <p class="price">₹ {{data.price}}</p>
-          <p class="desc">shipping charges will be added</p>
-        </mat-card-header>
+</mat-toolbar>
+<mat-divider></mat-divider>
+
+<div class="scrollablePart" *ngIf="!isLoading">
+  <div class="parent">
+    <div class="container">
+      <div class="example-card1 col-12 col-md-6">
+        <img mat-card-image [src]="data.imageUrl" alt="data.name" class="img img-fluid" />
+        <br>
+        <div class="actions">
+          <mat-card-actions class="act">
+            <button mat-button mat-stroked-button (click)="addToCart(1)" class="addTocart">Add to Cart</button>
+            <button mat-flat-button class="buy" (click)="openForm(data)">Buy Now</button>
+            <!-- <button (click)="payNow()">Pay </button> -->
+          </mat-card-actions>
+        </div>
       </div>
 
-      <div class="details" *ngIf="data.desc">
-        <mat-card-content>
-          <mat-card-title class="detailTitle">Product Details</mat-card-title>
-          <p class="desc" [innerHTML]="data.desc | newlineToBr"></p>
-          <p class="desc" *ngIf="data.productVideoLink">Product video link:</p>
-          <a [href]="data.productVideoLink" [attr.target]="'_blank'">{{data.productVideoLink}}</a>
-        </mat-card-content>
+      <div class="example-card2 col-12 col-md-6">
+        <div class="title">
+          <mat-card-header>
+            <mat-card-title class="name">{{ data.name }}</mat-card-title>
+            <p class="price">₹ {{data.price}}</p>
+            <p class="desc">shipping charges will be added</p>
+          </mat-card-header>
+        </div>
+
+        <div class="details" *ngIf="data.desc">
+          <mat-card-content>
+            <mat-card-title class="detailTitle">Product Details</mat-card-title>
+            <p class="desc" [innerHTML]="data.desc | newlineToBr"></p>
+            <p class="desc" *ngIf="data.productVideoLink">Product video link:</p>
+            <a [href]="data.productVideoLink" [attr.target]="'_blank'">{{data.productVideoLink}}</a>
+          </mat-card-content>
+        </div>
       </div>
     </div>
   </div>

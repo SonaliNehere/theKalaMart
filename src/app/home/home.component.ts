@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProductComponent } from './product/product.component';
 import { AuthService } from '../shared/auth.service';
@@ -58,7 +58,7 @@ export class HomeComponent {
     private loaderService: LoaderService,
     private messaging: AngularFireMessaging,
     private mediaQueryService: MediaQueryService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.email = localStorage.getItem('email');
     console.log('user : ', this.email);

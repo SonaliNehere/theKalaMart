@@ -1,4 +1,10 @@
-import { Component, Inject , AfterViewInit, ElementRef, Renderer2} from '@angular/core';
+import {
+  Component,
+  Inject,
+  AfterViewInit,
+  ElementRef,
+  Renderer2,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 import { UserFormComponent } from '../user-form/user-form.component';
@@ -9,9 +15,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoaderService } from '../../shared/loader.service';
+import { Location } from '@angular/common';
 
 declare var Razorpay: any;
-
 
 @Component({
   selector: 'app-product',
@@ -20,8 +26,10 @@ declare var Razorpay: any;
 })
 export class ProductComponent {
   data: any;
-  
+
   isLoading: boolean = false;
+
+  private savedScrollPosition: number = 0;
 
   constructor(
     private dataService: DataService,
@@ -30,7 +38,9 @@ export class ProductComponent {
     private _snackBar: MatSnackBar,
     private router: Router,
     private loaderService: LoaderService,
-    private el: ElementRef, private renderer: Renderer2
+    private el: ElementRef,
+    private renderer: Renderer2,
+    private location: Location
   ) {
     this.data = this.dataService.getData();
   }
@@ -76,6 +86,14 @@ export class ProductComponent {
     });
   }
 
+  routeToHome() {
+    this.router.navigate(['dashboard']);
+  }
+
+  routeBack() {
+    this.location.back(); // Navigate back to the previous page
+  }
+
   payNow() {
     const RozarpayOptions = {
       description: 'Sample Razorpay demo',
@@ -87,40 +105,26 @@ export class ProductComponent {
       prefill: {
         name: 'sai kumar',
         email: 'sai@gmail.com',
-        phone: '9898989898'
+        phone: '9898989898',
       },
       theme: {
-        color: '#6466e3'
+        color: '#6466e3',
       },
       modal: {
-        ondismiss:  () => {
-          console.log('dismissed')
-        }
-      }
-    }
+        ondismiss: () => {
+          console.log('dismissed');
+        },
+      },
+    };
 
     const successCallback = (paymentid: any) => {
       console.log(paymentid);
-    }
+    };
 
     const failureCallback = (e: any) => {
       console.log(e);
-    }
+    };
 
-    Razorpay.open(RozarpayOptions,successCallback, failureCallback)
+    Razorpay.open(RozarpayOptions, successCallback, failureCallback);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
