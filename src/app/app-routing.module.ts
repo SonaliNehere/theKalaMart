@@ -33,8 +33,13 @@ const routes: Routes = [
   {path: 'edit-profile', component : EditProfileComponent},
 ];
 
+// @NgModule({
+//   imports: [RouterModule.forRoot(routes)],
+//   exports: [RouterModule]
+// })
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
