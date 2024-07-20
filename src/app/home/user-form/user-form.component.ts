@@ -372,9 +372,9 @@ export class UserFormComponent {
           .then((url) => {
             this.uploadedFiles.push({ file, filePath, url });
             this.isLoading = this.loaderService.hide();
-            this._snackBar.open('Image uploaded successfully', 'Close', {
-              duration: 3000,
-            });
+            // this._snackBar.open('Image uploaded successfully', 'Close', {
+            //   duration: 3000,
+            // });
           });
       })
       .catch((error) => {
@@ -420,9 +420,9 @@ export class UserFormComponent {
               (file) => file.filePath !== fileToDelete.filePath
             );
             this.isLoading = this.loaderService.hide();
-            this._snackBar.open('Image deleted successfully', 'Close', {
-              duration: 3000,
-            });
+            // this._snackBar.open('Image deleted successfully', 'Close', {
+            //   duration: 3000,
+            // });
             
             this.isDeleteImage = false;
           })

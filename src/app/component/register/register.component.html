@@ -3,28 +3,61 @@
         <div class="col-12 col-md-8 col-lg-5">
             <div class="card shadow">
                 <div class="card-body">
-                    <form>
+
+                    <form (ngSubmit)="register()" #registerForm="ngForm">
                         <div class="mb-3">
                             <h2 class="text-dark text-muted text-center">Register</h2>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email">
+                            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email"
+                                #emailField="ngModel" required email>
+                            <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)" class="text-danger">
+                                <div *ngIf="emailField.errors?.['required']">
+                                    Email is required
+                                </div>
+                                <div *ngIf="emailField.errors?.['email']">
+                                    Invalid email format
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name">
+                            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" #nameField="ngModel" required>
+                            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                                <div *ngIf="nameField.errors?.['required']">
+                                    Name is required
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="contact" class="form-label">Contact Number</label>
-                            <input type="tel" class="form-control" id="contact" name="contact" [(ngModel)]="contact">
+                            <input type="tel" class="form-control" id="contact" name="contact" [(ngModel)]="contact"
+                                #contactField="ngModel" required pattern="^[0-9]{10}$">
+                            <div *ngIf="contactField.invalid && (contactField.dirty || contactField.touched)" class="text-danger">
+                                <div *ngIf="contactField.errors?.['required']">
+                                    Contact number is required
+                                </div>
+                                <div *ngIf="contactField.errors?.['pattern']">
+                                    Contact number must be a 10-digit number
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 position-relative">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
+                            <input [type]="passwordFieldType" class="form-control" id="password" name="password"
+                                [(ngModel)]="password" #passwordField="ngModel" required>
+                            <i class="fa" [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"
+                                (click)="togglePasswordVisibility()"
+                                style="position: absolute; right: 10px; top: 39px; cursor: pointer;"></i>
+                            <div *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)" class="text-danger">
+                                <div *ngIf="passwordField.errors?.['required']">
+                                    Password is required
+                                </div>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button type="button" class="btn btn-info text-dark" (click)="register()">Register</button>
+                            <button type="submit" class="btn btn-info text-dark" [disabled]="registerForm.invalid">Register</button>
                         </div>
                         <br>
                         <div class="row">
@@ -33,6 +66,7 @@
                             </div>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>

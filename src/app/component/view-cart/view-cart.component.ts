@@ -7,6 +7,7 @@ import { UserFormComponent } from '../../home/user-form/user-form.component';
 import { MediaQueryService } from '../../shared/media-query.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { LoaderService } from '../../shared/loader.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-view-cart',
@@ -21,21 +22,27 @@ export class ViewCartComponent {
   isMobile!: boolean;
   isLoading: boolean = false;
 
+  errorMessage: any;
+
   constructor(
     private dataService: DataService,
     private router: Router,
     private _snackBar: MatSnackBar,
     private dialog: MatDialog,
     private mediaQueryService: MediaQueryService,
-    private loaderService: LoaderService,
+    private loaderService: LoaderService
   ) {
     this.isLoading = this.loaderService.show();
     this.dataService.getCartProducts().subscribe((res: any) => {
-      console.log('Products : ', res.products);
-      this.cartProducts = res.products;
-      this.getTotalPrice();
+      console.log('res : ', res);
+      if (res) {
+        console.log('Products : ', res.products);
+        this.cartProducts = res.products;
+        this.getTotalPrice();
+      }
       this.isLoading = this.loaderService.hide();
     });
+
   }
 
   ngOnInit(): void {
@@ -75,7 +82,7 @@ export class ViewCartComponent {
           ?.then(() => {
             this.isLoading = this.loaderService.hide();
             console.log('Product removed from cart');
-            this.openSnackBar('Product removed from cart ', 'Close');
+            // this.openSnackBar('Product removed from cart ', 'Close');
           })
           .catch((error: any) => {
             this.isLoading = this.loaderService.hide();
@@ -136,7 +143,7 @@ export class ViewCartComponent {
           ?.then(() => {
             console.log('Cart cleared');
             this.isLoading = this.loaderService.hide();
-            this.openSnackBar('Cart cleared', 'Close');
+            // this.openSnackBar('Cart cleared', 'Close');
             this.getTotalPrice();
           })
           .catch((error: any) => {
@@ -156,7 +163,7 @@ export class ViewCartComponent {
       .increaseDecreaseQuantity(productId, quantity - 1, product)
       ?.then(() => {
         console.log('Product quantity updated to cart');
-        this.openSnackBar('Product quantity updated to cart ', 'Close');
+        // this.openSnackBar('Product quantity updated to cart ', 'Close');
       })
       .catch((error: any) => {
         console.error(
@@ -176,7 +183,7 @@ export class ViewCartComponent {
       .increaseDecreaseQuantity(productId, quantity + 1, product)
       ?.then(() => {
         console.log('Product quantity updated to cart');
-        this.openSnackBar('Product quantity updated to cart ', 'Close');
+        // this.openSnackBar('Product quantity updated to cart ', 'Close');
       })
       .catch((error: any) => {
         console.error(
@@ -210,121 +217,3 @@ export class ViewCartComponent {
     this.router.navigate(['dashboard']);
   }
 }
-
-// import { Component } from '@angular/core';
-// import { DataService } from '../../shared/data.service';
-// import { Router } from '@angular/router';
-// import { MatSnackBar } from '@angular/material/snack-bar';
-// import { MatDialog } from '@angular/material/dialog';
-// import { UserFormComponent } from '../../home/user-form/user-form.component';
-
-// @Component({
-//   selector: 'app-view-cart',
-//   templateUrl: './view-cart.component.html',
-//   styleUrl: './view-cart.component.css',
-// })
-// export class ViewCartComponent {
-//   cartProducts: any = [];
-//   selectedProducts: any = [];
-//   selectedTotalPrice: number = 0;
-
-//   constructor(
-//     private dataService: DataService,
-//     private router: Router,
-//     private _snackBar: MatSnackBar,
-//     private dialog: MatDialog
-//   ) {
-//     this.dataService.getCartProducts().subscribe((res: any) => {
-//       console.log('Products:', res.products);
-//       // this.cartProducts = res.products;
-//       this.cartProducts = res.products.map((product: any) => {
-//         return { ...product, selected: true }; // Initialize selected property to true
-//       });
-//       this.updateSelectedItems();
-//     });
-//   }
-
-//   openProduct(item: any): void {
-//     this.dataService.setData(item);
-//     this.router.navigate(['product']);
-//   }
-
-//   removeProductFromCart(productId: any) {
-//     if (confirm('Are you sure you want to remove this product from cart?')) {
-//       this.dataService.removeFromCart(productId)?.then(() => {
-//         console.log('Product removed from cart');
-//         this.openSnackBar('Product removed from cart', 'Close');
-//         this.updateSelectedItems();
-//       }).catch((error: any) => {
-//         console.error('Error while removing product from cart:', error);
-//         this.openSnackBar('Error while removing product from cart: ' + error, 'Close');
-//       });
-//     }
-//   }
-
-//   openSnackBar(message: string, action: string) {
-//     this._snackBar.open(message, action, {
-//       duration: 2000,
-//     });
-//   }
-
-//   emptyCart() {
-
-//     if (confirm('Are you sure you want to clear the cart ?')) {
-//     this.dataService.emptyCart()?.then(() => {
-//       console.log('Cart cleared');
-//       this.openSnackBar('Cart cleared', 'Close');
-//       this.updateSelectedItems();
-//     }).catch((error: any) => {
-//       console.error('Error while clearing the cart:', error);
-//       this.openSnackBar('Error while clearing the cart: ' + error, 'Close');
-//     });
-//   }
-//   }
-
-//   decreaseQuantity(quantity: any, productId: any, product: any): void {
-//     this.dataService.increaseDecreaseQuantity(productId, quantity - 1, product)?.then(() => {
-//       console.log('Product quantity updated in cart');
-//       this.openSnackBar('Product quantity updated in cart', 'Close');
-//       this.updateSelectedItems();
-//     }).catch((error: any) => {
-//       console.error('Error while updating product quantity in cart:', error);
-//       this.openSnackBar('Error while updating product quantity in cart: ' + error, 'Close');
-//     });
-//   }
-
-//   increaseQuantity(quantity: any, productId: any, product: any): void {
-//     this.dataService.increaseDecreaseQuantity(productId, quantity + 1, product)?.then(() => {
-//       console.log('Product quantity updated in cart');
-//       this.openSnackBar('Product quantity updated in cart', 'Close');
-//       this.updateSelectedItems();
-//     }).catch((error: any) => {
-//       console.error('Error while updating product quantity in cart:', error);
-//       this.openSnackBar('Error while updating product quantity in cart: ' + error, 'Close');
-//     });
-//   }
-
-//   updateSelectedItems() {
-//     this.selectedProducts = this.cartProducts.filter((product: any) => product.selected);
-//     this.calculateSelectedTotalPrice();
-//   }
-
-//   calculateSelectedTotalPrice() {
-//     this.selectedTotalPrice = this.selectedProducts.reduce((total: number, product: any) => {
-//       return total + (product.product.price * product.quantity);
-//     }, 0);
-//   }
-
-//   hasSelectedItems() {
-//     return this.selectedProducts.length > 0;
-//   }
-
-//   openForm() {
-//     this.dataService.setCartData(this.selectedProducts);
-//     this.router.navigate(['user-form']);
-//   }
-
-//   routeToHome() {
-//     this.router.navigate(['dashboard']);
-//   }
-// }

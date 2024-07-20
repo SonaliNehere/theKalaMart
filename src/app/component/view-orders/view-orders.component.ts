@@ -14,10 +14,11 @@ import { LoaderService } from '../../shared/loader.service';
 })
 export class ViewOrdersComponent {
   orders: any[] = [];
+  sortedOrders: any[] = [];
   // private intervalId: any;
 
   isMobile!: boolean;
-  
+
   isLoading: boolean = false;
 
   private unsubscribe: any;
@@ -28,7 +29,7 @@ export class ViewOrdersComponent {
     private sendEmailService: SendEmailService,
     private mediaQueryService: MediaQueryService,
     private dialog: MatDialog,
-    private loaderService: LoaderService,
+    private loaderService: LoaderService
   ) {
     // this.startInterval();
   }
@@ -50,7 +51,7 @@ export class ViewOrdersComponent {
   ngOnInit() {
     this.fetchOrders();
 
-    this.mediaQueryService.isMobile$.subscribe(isMobile => {
+    this.mediaQueryService.isMobile$.subscribe((isMobile) => {
       this.isMobile = isMobile;
     });
   }
@@ -76,6 +77,9 @@ export class ViewOrdersComponent {
       (orders: any[]) => {
         this.orders = orders;
         console.log('Orders fetched:', orders);
+
+        this.sortedOrders = this.sortOrdersByDate(orders);
+        console.log('sortedOrders : ', this.sortedOrders);
         this.isLoading = this.loaderService.hide();
       },
       (error: any) => {
@@ -85,39 +89,51 @@ export class ViewOrdersComponent {
     );
   }
 
+  // Function to sort the array
+  sortOrdersByDate(
+    orders: { id: number; dateOfOrdered: string }[]
+  ): { id: number; dateOfOrdered: string }[] {
+    return orders.sort((a, b) => {
+      const dateA = new Date(a.dateOfOrdered);
+      const dateB = new Date(b.dateOfOrdered);
+      return dateB.getTime() - dateA.getTime(); // For descending order
+    });
+  }
+
   cancelOrder(orderId: any) {
     // if (confirm('Are you sure you want to cancel this order?')) {
-      const dialogConfig = new MatDialogConfig();
+    const dialogConfig = new MatDialogConfig();
 
-      // Set the position of the dialog
-      dialogConfig.position = {
-        top: '250px',
-        // right: '20px',
-      };
-  
-      dialogConfig.data = {
-        message: 'Are you sure you want to cancel this order?',
-      };
-  
-      const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
-  
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-      this.dataService
-        .cancelOrder(orderId)
-        ?.then((res: any) => {
-          this.fetchOrders();
-          this.sendEmailService.sendEmailDynamic(
-            'Order cancelled with orderId : ' +
-              orderId + "\n" + 
-              ' by user : ' +
-              localStorage.getItem('uid')
+    // Set the position of the dialog
+    dialogConfig.position = {
+      top: '250px',
+      // right: '20px',
+    };
+
+    dialogConfig.data = {
+      message: 'Are you sure you want to cancel this order?',
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.dataService
+          .cancelOrder(orderId)
+          ?.then((res: any) => {
+            this.fetchOrders();
+            this.sendEmailService.sendEmailDynamic(
+              'Order cancelled with orderId : ' +
+                orderId +
+                '\n' +
+                ' by user : ' +
+                localStorage.getItem('uid')
               // this.dataService.getUid()
-          );
-        })
-        .catch((error) => {
-          console.error('Error canceling orders:', error);
-        });
+            );
+          })
+          .catch((error) => {
+            console.error('Error canceling orders:', error);
+          });
       }
     });
     // }

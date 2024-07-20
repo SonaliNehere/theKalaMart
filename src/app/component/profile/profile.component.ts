@@ -20,14 +20,11 @@ export class ProfileComponent {
     // private loaderService: LoaderService,
   ) {
     this.email = localStorage.getItem('email');
-    // this.email = this.dataService.getEmail();
 
     this.getUser();
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    // this.getUser();
   }
 
   email: any;
@@ -65,7 +62,6 @@ export class ProfileComponent {
   }
 
   showUserDetails(){
-    // this.dataService.setUserData(this.userDetails.user);
     this.router.navigate(['edit-profile']);
     this.dialogRef.close();
   }

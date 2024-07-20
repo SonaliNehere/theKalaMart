@@ -36,6 +36,7 @@ export class AuthService {
 
   // login method
   login(email: string, password: string) {
+    console.log("in login");
     this.fireauth.signInWithEmailAndPassword(email, password).then(
       (res) => {
         console.log('res of : login', res);
@@ -64,8 +65,8 @@ export class AuthService {
         // alert('Invalid id or password entered');
         this.dialog.open(ErrorDialogComponent, {
           data: {
-            message: 'Invalid id or password entered'
-          }
+            message: 'Invalid id or password entered',
+          },
         });
         this.router.navigate(['/login']);
       }
@@ -79,18 +80,19 @@ export class AuthService {
         console.log('res of : register', res);
         console.log(' uid : ', res?.user?.uid);
         this.uid = res?.user?.uid;
+        console.log('Registration Successful');
         // alert('Registration Successful');
-        this.dialog.open(ErrorDialogComponent, {
-          data: {
-            message: 'Registration Successful'
-          }
-        });
+        // this.dialog.open(ErrorDialogComponent, {
+        //   data: {
+        //     message: 'Registration Successful'
+        //   }
+        // });
 
         this.dataService
           .addUserDetails(email, password, name, contact, this.uid)
           ?.then(() => {
             console.log('User added ');
-            this.openSnackBar('User added', 'Close');
+            // this.openSnackBar('User added', 'Close');
           })
           .catch((error: any) => {
             console.error('Error adding user:', error);
@@ -104,8 +106,8 @@ export class AuthService {
         // alert(err.message);
         this.dialog.open(ErrorDialogComponent, {
           data: {
-            message: err.message
-          }
+            message: err.message,
+          },
         });
         this.router.navigate(['/register']);
       }
@@ -145,8 +147,8 @@ export class AuthService {
             // alert(err.message);
             this.dialog.open(ErrorDialogComponent, {
               data: {
-                message: err.message
-              }
+                message: err.message,
+              },
             });
           }
         );
@@ -165,8 +167,8 @@ export class AuthService {
         // alert('Something went wrong');
         this.dialog.open(ErrorDialogComponent, {
           data: {
-            message: 'Something went wrong'
-          }
+            message: 'Something went wrong',
+          },
         });
       }
     );
@@ -182,8 +184,9 @@ export class AuthService {
         // alert('Something went wrong. Not able to send mail to your email');
         this.dialog.open(ErrorDialogComponent, {
           data: {
-            message: 'Something went wrong. Not able to send mail to your email'
-          }
+            message:
+              'Something went wrong. Not able to send mail to your email',
+          },
         });
       }
     );
@@ -200,8 +203,8 @@ export class AuthService {
         // alert(err.message);
         this.dialog.open(ErrorDialogComponent, {
           data: {
-            message: err.message
-          }
+            message: err.message,
+          },
         });
       }
     );
