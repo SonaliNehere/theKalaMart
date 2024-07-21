@@ -1,13 +1,20 @@
 <app-loader *ngIf="isLoading"></app-loader>
 <mat-toolbar>
   <!-- <span>Place Order </span> -->
-  <button mat-icon-button class="home" (click)="routeBack()">
+  <!-- <button mat-icon-button class="home" (click)="routeToHome()">
     <mat-icon>arrow_back_ios</mat-icon>
-  </button>
-  <span class="example-spacer"></span>
+  </button> -->
   <button mat-icon-button class="home" (click)="routeToHome()">
     <mat-icon>home</mat-icon>
   </button>
+  <span class="example-spacer"></span>
+  <button mat-icon-button (click)="openCart()">
+    <mat-icon aria-hidden="false" matBadge={{cartLength}} matBadgeSize="small"
+      matBadgeOverlap="true">shopping_cart</mat-icon>
+  </button>
+  <!-- <button mat-icon-button class="home" (click)="routeToHome()">
+    <mat-icon>home</mat-icon>
+  </button> -->
 
 </mat-toolbar>
 <mat-divider></mat-divider>

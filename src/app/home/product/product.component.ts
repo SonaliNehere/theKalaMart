@@ -28,6 +28,7 @@ export class ProductComponent {
   data: any;
 
   isLoading: boolean = false;
+  cartLength = 0;
 
   private savedScrollPosition: number = 0;
 
@@ -43,6 +44,21 @@ export class ProductComponent {
     private location: Location
   ) {
     this.data = this.dataService.getData();
+  }
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+     //cart lenght
+     this.dataService.getCartProducts().subscribe((res: any) => {
+      if (res) {
+        console.log('Products : ', res.products);
+        this.cartLength = res.products.length;
+        console.log('cartLength : ', this.cartLength);
+      }
+    });
+
+    // window.scrollTo(0, 0);
   }
 
   ngAfterViewInit() {
@@ -92,6 +108,11 @@ export class ProductComponent {
 
   routeBack() {
     this.location.back(); // Navigate back to the previous page
+  }
+
+  
+  openCart() {
+    this.router.navigate(['cart']);
   }
 
   payNow() {

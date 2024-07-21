@@ -24,7 +24,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { HttpClientModule } from '@angular/common/http';
+// import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './home/product/product.component';
@@ -94,7 +95,7 @@ import { NewlineToBrPipe } from './pipes/newline-to-br.pipe';
     MatProgressSpinnerModule,
     HttpClientModule
   ],
-  providers: [provideAnimationsAsync(), MessagingService],
+  providers: [provideAnimationsAsync(), MessagingService, provideHttpClient(withFetch())],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

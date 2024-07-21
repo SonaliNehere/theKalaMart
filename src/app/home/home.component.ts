@@ -1,11 +1,11 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, HostListener, Renderer2 } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProductComponent } from './product/product.component';
 import { AuthService } from '../shared/auth.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, finalize } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { DataService } from '../shared/data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProfileComponent } from '../component/profile/profile.component';
@@ -36,8 +36,8 @@ export class HomeComponent {
   imageUrl: File | null = null;
   products: any[] = [];
 
-  email: any;
-  password: any;
+  // email: any;
+  // password: any;
 
   selectedFile: File | null = null;
 
@@ -45,6 +45,8 @@ export class HomeComponent {
   isLoading: boolean = false;
 
   isMobile!: boolean;
+
+  private currentUrl: string = '';
 
   constructor(
     private dialog: MatDialog,
@@ -58,37 +60,21 @@ export class HomeComponent {
     private loaderService: LoaderService,
     private messaging: AngularFireMessaging,
     private mediaQueryService: MediaQueryService,
-    private authService: AuthService,
-  ) {
-    this.email = localStorage.getItem('email');
-    console.log('user : ', this.email);
+    private authService: AuthService ,
+  ) //  private viewportScroller: ViewportScroller,
+  {
+    // this.email = localStorage.getItem('email');
+    // console.log('user : ', this.email);
 
     // Retrieve products from Firestore
     // this.products$ = this.firestore.collection('products').valueChanges();
   }
 
   ngOnInit() {
-    // this.messaging.requestToken.subscribe(
-    //   (token) => {
-    //     this.fcmToken = token;
-    //     console.log("token : ", this.fcmToken);
-    //     // Once you obtain the token, you can store it securely
-    //     // You can use AdminService to save the token in Firestore
-    //   },
-    //   (error) => {
-    //     console.error('Error requesting permission:', error);
-    //   }
-    // );
-
-    // //get notification
-    // this.messaging.messages.subscribe((message) => {
-    //   this.handleNotification(message);
-    // });
-
-    this.email = localStorage.getItem('email');
-    this.password = localStorage.getItem('password');
-    console.log('email : ', this.email);
-    console.log('password : ', this.password);
+    // this.email = localStorage.getItem('email');
+    // this.password = localStorage.getItem('password');
+    // console.log('email : ', this.email);
+    // console.log('password : ', this.password);
 
     // Retrieve product details from Firebase Firestore
     this.isLoading = this.loaderService.show();
@@ -113,14 +99,13 @@ export class HomeComponent {
     this.mediaQueryService.isMobile$.subscribe((isMobile) => {
       this.isMobile = isMobile;
     });
+    
   }
 
-  // handleNotification(message: any): void {
-  //   // Handle the notification data
-  //   this.notifications.push(message.notification);
-  // }
+
 
   openProduct(item: any): void {
+
     this.dataService.setData(item);
     this.router.navigate(['product']);
   }
@@ -206,3 +191,5 @@ export class HomeComponent {
     this.router.navigate(['cart']);
   }
 }
+
+
