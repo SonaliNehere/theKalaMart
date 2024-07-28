@@ -13,6 +13,8 @@ import { LoaderService } from '../shared/loader.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 import { MediaQueryService } from '../shared/media-query.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { CategoryFilterSheetComponent } from './category-filter-sheet/category-filter-sheet.component';
 
 @Component({
   selector: 'app-home',
@@ -47,6 +49,7 @@ export class HomeComponent {
   isMobile!: boolean;
 
   private currentUrl: string = '';
+  selectedCategory: string = 'All';
 
   constructor(
     private dialog: MatDialog,
@@ -61,6 +64,7 @@ export class HomeComponent {
     private messaging: AngularFireMessaging,
     private mediaQueryService: MediaQueryService,
     private authService: AuthService ,
+    private bottomSheet: MatBottomSheet
   ) //  private viewportScroller: ViewportScroller,
   {
     // this.email = localStorage.getItem('email');
@@ -101,8 +105,6 @@ export class HomeComponent {
     });
     
   }
-
-
 
   openProduct(item: any): void {
 
@@ -189,6 +191,27 @@ export class HomeComponent {
 
   openCart() {
     this.router.navigate(['cart']);
+  }
+
+  filterProducts() {
+    if (this.selectedCategory === 'All') {
+      this.filteredProducts = this.products;
+    } else {
+      this.filteredProducts = this.products.filter(product => product.category === this.selectedCategory);
+    }
+  }
+
+  openFilter(): void {
+    const bottomSheetRef = this.bottomSheet.open(CategoryFilterSheetComponent, {
+      data: { selectedCategory: this.selectedCategory }
+    });
+
+    bottomSheetRef.afterDismissed().subscribe((selectedCategory: string) => {
+      if (selectedCategory) {
+        this.selectedCategory = selectedCategory;
+        this.filterProducts();
+      }
+    });
   }
 }
 

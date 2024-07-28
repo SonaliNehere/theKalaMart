@@ -49,6 +49,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { EditProfileComponent } from './home/edit-profile/edit-profile.component';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import { NewlineToBrPipe } from './pipes/newline-to-br.pipe';
+import { CategoryFilterSheetComponent } from './home/category-filter-sheet/category-filter-sheet.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { NewlineToBrPipe } from './pipes/newline-to-br.pipe';
     EditProfileComponent,
     ErrorDialogComponent,
     NewlineToBrPipe,
+    CategoryFilterSheetComponent,
   ],
   imports: [
     BrowserModule,
